@@ -1,0 +1,4 @@
+// /signUp
+//Login
+//sendOTP
+//changePassword
