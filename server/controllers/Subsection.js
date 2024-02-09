@@ -17,17 +17,17 @@ exports.createSubSection = async (req, res) => {
       })
     }
     //upload video to cloudinary
-    const uploadDetails = await uploadImageToCloudinary(
-      video,
-      process.env.FOLDER_NAME
-    )
+      const uploadDetails = await uploadImageToCloudinary(
+        video,
+        process.env.FOLDER_NAME
+      )
     //create a sub section
-    const SubSectionDetails = await SubSection.create({
-      title: title,
-      timeDuration: timeDuration,
-      description: description,
-      videoUrl: uploadDetails.secure_url,
-    })
+      const SubSectionDetails = await SubSection.create({
+        title: title,
+        timeDuration: timeDuration,
+        description: description,
+        videoUrl: uploadDetails.secure_url,
+      })
     //update section with thi sub section ObjectId
     const updatedSection = await Section.findByIdAndUpdate(
       { _id: sectionId },
@@ -39,7 +39,9 @@ exports.createSubSection = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: 'Sub Section Created Successfully',
+      updatedSection,
     })
+    
   } catch (error) {
     return res.status(500).json({
       success: false,

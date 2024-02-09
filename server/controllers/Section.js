@@ -15,11 +15,15 @@ exports.createSection = async (req, res) => {
     //create section
     const newSection = await Section.create({ sectionName })
     //update course with section ObjectId
-    const updatedCourseDetails = await Course.findByIdAndUpdate(courseId, {
-      $push: {
-        courseContent: newSection._id,
+    const updatedCourseDetails = await Course.findByIdAndUpdate(
+      courseId,
+      {
+        $push: {
+          courseContent: newSection._id,
+        },
       },
-    })
+      { new: true }
+    )
     //TODO:use populate to replace section/subsection both
     //return response
     return res.status(200).json({
@@ -40,28 +44,28 @@ exports.createSection = async (req, res) => {
 exports.updateSection = async (req, res) => {
   try {
     //data input
-    const { sectionName, sectionId } = req.body
+      const { sectionName, sectionId } = req.body
     //data validation
-    if (!sectionName || !sectionId) {
-      return res.status(400).json({
-        success: false,
-        message: 'Missing Properties',
-      })
-    }
+      if (!sectionName || !sectionId) {
+        return res.status(400).json({
+          success: false,
+          message: 'Missing Properties',
+        })
+      }
     //update data
-    const section = await Section.findByIdAndUpdate(
-      sectionId,
-      {
-        sectionName,
-      },
-      { new: true }
-    )
+      const section = await Section.findByIdAndUpdate(
+        sectionId,
+        {
+          sectionName,
+        },
+        { new: true }
+      )
     //return res
-    return res.status(200).json({
-      success: true,
-      message: 'Section Updated Successfully',
-      data: section,
-    })
+      return res.status(200).json({
+        success: true,
+        message: 'Section Updated Successfully',
+        data: section,
+      })
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -73,7 +77,7 @@ exports.updateSection = async (req, res) => {
 
 exports.deleteSection = async (req, res) => {
   try {
-    //get ID - assuming that e are sanding ID in params
+    //get ID - assuming that we are sanding ID in params
     const { sectionId } = req.params
     //use findByIdAndDelete
     await Section.findByIdAndDelete(sectionId)
