@@ -6,10 +6,19 @@ const { uploadImageToCloudinary } = require('../utils/imageUploader')
 
 exports.createCourse = async (req, res) => {
   try {
-    //fetch data
-    const { courseName, courseDescription, whatYouWillLearn, price, tag } =
-      req.body
-    //get thumbnail
+    // Get user ID from request object
+    const userId = req.user.id
+    let {
+      courseName,
+      courseDescription,
+      whatYouWillLearn,
+      price,
+      tag,
+      category,
+      status,
+      instructions,
+    } = req.body
+    // Get thumbnail image from request files
     const thumbnail = req.files.thumbnailImage
     //validation
     if (
@@ -17,48 +26,58 @@ exports.createCourse = async (req, res) => {
       !courseDescription ||
       !whatYouWillLearn ||
       !price ||
-      !thumbnail
+      !tag ||
+      !thumbnail ||
+      !category
     ) {
       return res.status(400).json({
         success: false,
         message: 'All filed are required',
       })
     }
-    //check for instructor
-    const userId = req.user.id
-    const instructorDetails = await User.findById(userId)
+    if (!status || status === undefined) {
+      status = 'Draft'
+    }
+    // Check if the user is an instructor
+    const instructorDetails = await User.findById(userId, {
+      accountType: 'Instructor',
+    })
     console.log('Instructor Details : ', instructorDetails)
-    //TODO: verify that userId and instructor
+
     if (!instructorDetails) {
       return res.status(404).json({
         success: false,
         message: 'Instructor Details not found',
       })
     }
-    //check given tag is valid or not
-    const tagDetails = await Tag.findById(tag)
-    if (!tagDetails) {
+    // Check if the tag given is valid
+    const categoryDetails = await Category.findById(category)
+    if (!categoryDetails) {
       return res.status(404).json({
         success: false,
-        message: 'Tag Details not found',
+        message: 'Category Details Not Found',
       })
     }
-    //upload image top cloudinary
+    // Upload the Thumbnail to Cloudinary
     const thumbnailImage = await uploadImageToCloudinary(
       thumbnail,
       process.env.FOLDER_NAME
     )
-    //create an entry for new course
+    console.log(thumbnailImage)
+    // Create a new course with the given details
     const newCourse = await Course.create({
       courseName,
       courseDescription,
       instructor: instructorDetails._id,
       whatYouWillLearn: whatYouWillLearn,
       price,
-      tag: tagDetails._id,
-      thumbnail: thumbnailImage,
+      tag: tag,
+      category: categoryDetails._id,
+      thumbnail: thumbnailImage.secure_url,
+      status: status,
+      instructions: instructions,
     })
-    //add the new course to the user schema of instructor
+    // Add the new course to the User Schema of the Instructor
     await User.findByIdAndUpdate(
       { _id: instructorDetails._id },
       {
@@ -69,14 +88,25 @@ exports.createCourse = async (req, res) => {
       { new: true }
     )
     //update the TAG ka schema
-    //TODO:HW
-    //return response
-    return res.status(200).json({
+    // Add the new course to the Categories
+    await Category.findByIdAndUpdate(
+      { _id: category },
+      {
+        $push: {
+          course: newCourse._id,
+        },
+      },
+      { new: true }
+    )
+
+    // Return the new course and a success message
+    res.status(200).json({
       success: true,
-      message: 'Course Created Successfully',
       data: newCourse,
+      message: 'Course Created Successfully',
     })
   } catch (error) {
+    // Handle any errors that occur during the creation of the course
     console.log(error)
     return res.status(500).json({
       success: false,

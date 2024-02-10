@@ -1,28 +1,19 @@
 const Profile = require('../models/Profile')
 const User = require('../models/User')
 require('dotenv').config()
+const { uploadImageToCloudinary } = require('../utils/imageUploader')
 exports.updateProfile = async (req, res) => {
   try {
-    //get data
-    const { dateOfBirth = '', about = '', contactNumber, gender } = req.body
-    //get userId
+    const { dateOfBirth = '', about = '', contactNumber } = req.body
     const id = req.user.id
-    //validation
-    if (!contactNumber || !gender || !id) {
-      return res.status(400).json({
-        success: false,
-        message: 'Al field are required',
-      })
-    }
-    //find profile
+    // Find the profile by id
     const userDetails = await User.findById(id)
-    const profileId = userDetails.additionalDetails
-    const profileDetails = await Profile.findById(profileId)
+    const profile = await Profile.findById(userDetails.additionalDetails)
+
     //update profile
-    profileDetails.dateOfBirth = dateOfBirth
-    profileDetails.about = about
-    profileDetails.gender = gender
-    profileDetails.contactNumber = contactNumber
+    profile.dateOfBirth = dateOfBirth
+    profile.about = about
+    profile.contactNumber = contactNumber
     await profileDetails.save()
     //return response
     return res.status(200).json({
@@ -42,23 +33,31 @@ exports.updateProfile = async (req, res) => {
 //Explore => how can we schedule this deletion operation
 exports.deleteAccount = async (req, res) => {
   try {
+    // TODO: Find More on Job Schedule
+    // const job = schedule.scheduleJob("10 * * * * *", function () {
+    // 	console.log("The answer to life, the universe, and everything!");
+    // });
+    // console.log(job);
     //get id
     const id = req.user.id
     //validation
-    const userDetails = await User.findById(id)
-
-    if (!userDetails) {
+    const user = await User.findById({ _id: id })
+    if (!user) {
       return res.status(404).json({
         success: false,
-        message: 'Use not found',
+        message: 'User not found',
       })
     }
     //delete profile
     //await Profile.findByIdAndUpdate({ _id: userDetails.additionalDetails })
-    await Profile.findByIdAndDelete({ _id: userDetails.additionalDetails })
-    //TODO:HW unrolled user form all enrolled courses
-    //delete user
+    await Profile.findByIdAndDelete({ _id: user.userDetails })
+    // TODO: Unenroll User From All the Enrolled Courses
+    // Now Delete User
     await User.findByIdAndDelete({ _id: id })
+    res.status(200).json({
+      success: true,
+      message: 'User deleted successfully',
+    })
   } catch (error) {
     return res.status(500).json({
       success: false,
@@ -75,6 +74,7 @@ exports.getAllUserDetails = async (req, res) => {
     const userDetails = await User.findById(id)
       .populate('additionalDetails')
       .exec()
+    console.log('userDetails :', userDetails)
     //validation
     // if (!userDetails) {
     //     return res.json()
@@ -91,3 +91,5 @@ exports.getAllUserDetails = async (req, res) => {
     })
   }
 }
+
+//updateDisplayPicture

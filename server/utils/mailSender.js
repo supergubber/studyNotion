@@ -1,5 +1,5 @@
 const nodemailer = require('nodemailer')
-
+require('dotenv').config()
 const mailSender = async (email, title, body) => {
   try {
     let transporter = nodemailer.createTransport({
@@ -11,7 +11,7 @@ const mailSender = async (email, title, body) => {
     })
 
     let info = await transporter.sendMail({
-      form: 'StudyNotion || CodeHelp - by Rizwan khan',
+      from: 'StudyNotion || CodeHelp - by Rizwan khan',
       to: `${email}`,
       subject: `${title}`,
       html: `${body}`,
@@ -19,7 +19,7 @@ const mailSender = async (email, title, body) => {
     console.log(info)
     return info
   } catch (error) {
-    console.log(error)
+    console.log(error.message)
   }
 }
 module.exports = mailSender
