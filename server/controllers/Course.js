@@ -181,7 +181,7 @@ exports.getCourseDetails = async (req, res) => {
     return res.status(200).json({
       success:false,
       message:"Course Details fetched successfully",
-      data;courseDetails
+      data:courseDetails
     })
   } catch (error) {
     console.log(error);
