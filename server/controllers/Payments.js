@@ -119,26 +119,26 @@ exports.verifySignature = async (req, res) => {
       console.log(enrolledStudent)
       //mail send krdo confirmation wala
       const emailResponse = await mailSender(
-        enrolledStudent:email,
-        "Congratulations from CodeHelp",
-        "Congratulation, you are onboarded into new CodeHelp Course"
+        enrolledStudent.email,
+        'Congratulations from CodeHelp',
+        'Congratulation, you are onboarded into new CodeHelp Course'
       )
-      console.log(emailResponse);
+      console.log(emailResponse)
       return res.status(200).json({
-        success:true,
-        message:"Signature Verified and Course Added"
+        success: true,
+        message: 'Signature Verified and Course Added',
       })
     } catch (error) {
-        console.log(error);
-        return res.status(500).json({
-            success:false,
-            message:error.message
-        })
+      console.log(error)
+      return res.status(500).json({
+        success: false,
+        message: error.message,
+      })
     }
-  }else{
+  } else {
     return res.status(400).json({
-        success:false,
-        message:"Invalid request"
+      success: false,
+      message: 'Invalid request',
     })
   }
 }
