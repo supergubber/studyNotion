@@ -42,6 +42,7 @@ exports.showAllCategories = async (req, res) => {
     })
   }
 }
+//categoryPageDetails
 
 exports.categoryPageDetails = async (req, res) => {
   try {
@@ -70,7 +71,9 @@ exports.categoryPageDetails = async (req, res) => {
     //Get courses for other categories
     const categoriesExceptSelected = await Category.find({
       id: { $ne: categoryId },
-    }).populate('courses')
+    })
+      .populate('courses')
+      .exec()
     let differentCourses = []
     for (const category of categoriesExceptSelected) {
       differentCourses.push(...category.courses)
