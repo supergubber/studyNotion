@@ -7,6 +7,8 @@ import Banner from '../assets/Images/banner.mp4'
 import CodeBlocks from '../components/core/Homepage/CodeBlocks'
 import LearningLanguageSection from '../components/core/Homepage/LearningLanguageSection'
 import TimelineSection from '../components/core/Homepage/TimelineSection'
+import InstructorSection from '../components/core/Homepage/InstructorSection'
+import ExploreMore from '../components/core/Homepage/ExploreMore'
 const Home = () => {
   return (
     <div>
@@ -132,6 +134,8 @@ const Home = () => {
             codeColor={'text-yellow-25'}
           />
         </div>
+        {/* code section 3 */}
+        <ExploreMore />
       </div>
       {/* section2 */}
       <div className='bg-pure-greys-5 text-richblack-700'>
@@ -173,6 +177,13 @@ const Home = () => {
         </div>
       </div>
       {/* section3 */}
+      <div className='flex-col items-center justify-between w-11/12 gap-8 mx-auto text-white max-w-maxContent first-letter:uppercase bg-richblack-900'>
+        <InstructorSection />
+        <h2 className='mt-10 text-4xl font-semibold text-center'>
+          review form Other learners
+        </h2>
+        {/* Review slider here */}
+      </div>
       {/* footer */}
     </div>
   )
