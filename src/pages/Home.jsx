@@ -138,7 +138,7 @@ const Home = () => {
         <div className='homepage_bg h-[310px]'>
           <div className='flex flex-col items-center justify-between w-11/12 gap-5 mx-auto max-w-maxContent'>
             <div className='h-[150px] w-full'></div>
-            <div className='flex flex-row items-center justify-center'>
+            <div className='flex flex-row items-center justify-center gap-7'>
               <CTAButton active={true} linkto={'/signup'}>
                 <div className='flex items-center gap-2'>
                   Explore Full Catalog
