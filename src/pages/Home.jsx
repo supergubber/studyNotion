@@ -9,11 +9,12 @@ import LearningLanguageSection from '../components/core/Homepage/LearningLanguag
 import TimelineSection from '../components/core/Homepage/TimelineSection'
 import InstructorSection from '../components/core/Homepage/InstructorSection'
 import ExploreMore from '../components/core/Homepage/ExploreMore'
+import Footer from '../components/common/Footer'
 const Home = () => {
   return (
     <div>
       {/* section1 */}
-      <div className='relative flex flex-col items-center justify-between w-11/12 mx-auto text-white group max-w-maxContent'>
+      <div className='relative flex flex-col items-center justify-between w-11/12 min-h-full mx-auto text-white group max-w-maxContent'>
         <Link to={'/signup'}>
           <div className='w-full p-1 mx-auto mt-16 font-bold transition-all duration-200 rounded-full hover:scale-95 bg-richblack-800 text-righblack-200'>
             <div className='flex flex-row items-center gap-2 px-10 py-[5px] rounded-full group-hover:bg-richblack-900'>
@@ -185,6 +186,7 @@ const Home = () => {
         {/* Review slider here */}
       </div>
       {/* footer */}
+      <Footer />
     </div>
   )
 }
