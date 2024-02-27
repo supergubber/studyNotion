@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import HighlightText from '../components/core/Homepage/HighlightText'
 import JsonFormat from '../data/countrycode.json'
 import { FaRegEye, FaRegEyeSlash } from 'react-icons/fa'
-import CTAButton from '../components/core/Homepage/Button.jsx'
 const Signup = () => {
   const instructor = ['Student', 'Instructors']
   const [indexName, setIndexName] = useState(0)
