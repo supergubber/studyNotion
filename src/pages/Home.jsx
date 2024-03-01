@@ -10,51 +10,61 @@ import TimelineSection from '../components/core/Homepage/TimelineSection'
 import InstructorSection from '../components/core/Homepage/InstructorSection'
 import ExploreMore from '../components/core/Homepage/ExploreMore'
 import Footer from '../components/common/Footer'
+
 const Home = () => {
   return (
     <div>
-      {/* section1 */}
-      <div className='relative flex flex-col items-center justify-between w-11/12 min-h-full mx-auto text-white group max-w-maxContent'>
+      {/*Section1  */}
+      <div className='relative flex flex-col items-center justify-between w-11/12 mx-auto text-white max-w-maxContent'>
         <Link to={'/signup'}>
-          <div className='w-full p-1 mx-auto mt-16 font-bold transition-all duration-200 rounded-full hover:scale-95 bg-richblack-800 text-righblack-200'>
-            <div className='flex flex-row items-center gap-2 px-10 py-[5px] rounded-full group-hover:bg-richblack-900'>
+          <div className='p-1 mx-auto mt-16 font-bold transition-all duration-200 rounded-full group bg-richblack-800 text-richblack-200 hover:scale-95 w-fit'>
+            <div
+              className='flex flex-row items-center gap-2 rounded-full px-10 py-[5px]
+                transition-all duration-200 group-hover:bg-richblack-900'
+            >
               <p>Become an Instructor</p>
               <FaArrowRight />
             </div>
           </div>
         </Link>
+
         <div className='text-4xl font-semibold text-center mt-7'>
           Empower Your Future with
-          <HighlightText text={'Coding Skill'} />
+          <HighlightText text={'Coding Skills'} />
         </div>
-        <div className='mt-7 w-[70%] text-center ext-lg font-bold text-richblack-300'>
+
+        <div className=' mt-4 w-[90%] text-center text-lg font-bold text-richblack-300'>
           With our online coding courses, you can learn at your own pace, from
           anywhere in the world, and get access to a wealth of resources,
           including hands-on projects, quizzes, and personalized feedback from
-          instructor
+          instructors.
         </div>
+
         <div className='flex flex-row mt-8 gap-7'>
           <CTAButton active={true} linkto={'/signup'}>
             Learn More
           </CTAButton>
+
           <CTAButton active={false} linkto={'/login'}>
             Book a Demo
           </CTAButton>
         </div>
-        <div className='mx-3 my-7 shadow-blue-200 w-[70%]'>
-          <video muted loop autoPlay className='h-[515px]'>
+
+        <div className='mx-3 my-12 shadow-blue-200'>
+          <video muted loop autoPlay>
             <source src={Banner} type='video/mp4' />
           </video>
         </div>
+
         {/* Code Section 1 */}
-        <div className='w-[70%]'>
+        <div>
           <CodeBlocks
             position={'lg:flex-row'}
             heading={
-              <div className='text-2xl font-semibold'>
+              <div className='text-4xl font-semibold'>
                 Unlock Your
                 <HighlightText text={'coding potential'} />
-                with out online courses
+                with our online courses
               </div>
             }
             subheading={
@@ -66,39 +76,24 @@ const Home = () => {
               active: true,
             }}
             ctabtn2={{
-              btnText: 'Learn more',
+              btnText: 'learn more',
               linkto: '/login',
               active: false,
             }}
-            codeblock={` <!DOCTYPE html>
-                <html>
-                <head>
-                <title>
-                homepage
-                </title>
-                <link rel="stylesheet" href="style.css"/>
-                </head>
-                <body>
-                  <h1><a href="/"></a></h1>
-                  <nav>                    
-                    <a href="/one>One</a>
-                    <a href="/two">Two</a>
-                    <a href="/three">Three</a>
-                  </nav>
-                </body>
-                </html>
-              `}
+            codeblock={`<<!DOCTYPE html>\n<html>\nhead><title>Example</title><linkrel="stylesheet"href="styles.css">\n/head>\n`}
             codeColor={'text-yellow-25'}
           />
         </div>
-        {/* code section 2 */}
-        <div className='w-[70%]'>
+
+        {/* Code Section 2 */}
+        <div>
           <CodeBlocks
             position={'lg:flex-row-reverse'}
             heading={
-              <div className='text-2xl font-semibold'>
-                Start
-                <HighlightText text={'Coding in Seconds'} />
+              <div className='text-4xl font-semibold'>
+                Unlock Your
+                <HighlightText text={'coding potential'} />
+                with our online courses
               </div>
             }
             subheading={
@@ -110,58 +105,44 @@ const Home = () => {
               active: true,
             }}
             ctabtn2={{
-              btnText: 'Learn more',
+              btnText: 'learn more',
               linkto: '/login',
               active: false,
             }}
-            codeblock={` <!DOCTYPE html>
-                <html>
-                <head>
-                <title>
-                homepage
-                </title>
-                <link rel="stylesheet" href="style.css"/>
-                </head>
-                <body>
-                  <h1><a href="/"></a></h1>
-                  <nav>                    
-                    <a href="/one>One</a>
-                    <a href="/two">Two</a>
-                    <a href="/three">Three</a>
-                  </nav>
-                </body>
-                </html>
-              `}
+            codeblock={`<!DOCTYPE html>\n<html>\nhead><title>Example</title><linkrel="stylesheet"href="styles.css">\n/head>\n`}
             codeColor={'text-yellow-25'}
           />
         </div>
-        {/* code section 3 */}
+
         <ExploreMore />
       </div>
-      {/* section2 */}
+
+      {/*Section 2  */}
       <div className='bg-pure-greys-5 text-richblack-700'>
         <div className='homepage_bg h-[310px]'>
           <div className='flex flex-col items-center justify-between w-11/12 gap-5 mx-auto max-w-maxContent'>
-            <div className='h-[150px] w-full'></div>
-            <div className='flex flex-row items-center justify-center gap-7'>
+            <div className='h-[150px]'></div>
+            <div className='flex flex-row text-white gap-7 '>
               <CTAButton active={true} linkto={'/signup'}>
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center gap-3'>
                   Explore Full Catalog
                   <FaArrowRight />
                 </div>
               </CTAButton>
-              <CTAButton active={false} linkto={'/login'}>
-                <div>Learn More</div>
+              <CTAButton active={false} linkto={'/signup'}>
+                <div>Learn more</div>
               </CTAButton>
             </div>
           </div>
         </div>
-        <div className='flex flex-col items-center justify-between w-11/12 mx-auto max-w-maxContent'>
-          <div className='flex flex-row gap-4 mb-10 mt-[95px]'>
+
+        <div className='flex flex-col items-center justify-between w-11/12 mx-auto max-w-maxContent gap-7'>
+          <div className='flex flex-row gap-5 mb-10 mt-[95px]'>
             <div className='text-4xl font-semibold w-[45%]'>
-              Get the Skills you need for{' '}
-              <HighlightText text={'job that is in demand'} />
+              Get the Skills you need for a
+              <HighlightText text={'Job that is in demand'} />
             </div>
+
             <div className='flex flex-col gap-10 w-[40%] items-start'>
               <div className='text-[16px]'>
                 The modern StudyNotion is the dictates its own terms. Today, to
@@ -169,23 +150,28 @@ const Home = () => {
                 skills.
               </div>
               <CTAButton active={true} linkto={'/signup'}>
-                <div>Learn More</div>
+                <div>Learn more</div>
               </CTAButton>
             </div>
           </div>
+
           <TimelineSection />
+
           <LearningLanguageSection />
         </div>
       </div>
-      {/* section3 */}
-      <div className='flex-col items-center justify-between w-11/12 gap-8 mx-auto text-white max-w-maxContent first-letter:uppercase bg-richblack-900'>
+
+      {/*Section 3 */}
+      <div className='flex-col items-center justify-between w-11/12 gap-8 mx-auto text-white max-w-maxContent first-letter bg-richblack-900'>
         <InstructorSection />
-        <h2 className='mt-10 text-4xl font-semibold text-center'>
-          review form Other learners
+
+        <h2 className='mt-10 text-4xl text-center font-semobold'>
+          review from Other Learners
         </h2>
-        {/* Review slider here */}
+        {/* Review Slider here */}
       </div>
-      {/* footer */}
+
+      {/*Footer */}
       <Footer />
     </div>
   )
